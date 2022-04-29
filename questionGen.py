@@ -27,15 +27,10 @@ def question_gen():
         f.write(chess.svg.board(board))
 
     fen = board.fen()
-    stockfish = Stockfish()
+    stockfish = Stockfish(path="/usr/local/Cellar/stockfish/15/bin/stockfish",depth=20)
     stockfish.set_fen_position(fen)
     eval = stockfish.get_evaluation()
     if eval["type"] == 'mate':
         return question_gen()
-
-    engine = chess.engine.SimpleEngine.popen_uci("/usr/local/Cellar/stockfish/11/bin/stockfish")
-    info = engine.analyse(board, chess.engine.Limit(depth=20))
-    print("MEMEMEMEMEMEMMEMEMEMEMEMEMEMEMEMEMEMEMEME")
-    print(info['score'])
-    print(eval['value'])
+        
     return eval["value"], fen
