@@ -10,7 +10,7 @@ SCORES_PLOT_FILE = 'static/scores.png'
 
 def store_score(beta, x, L, U, user=''):
     def compute_score(beta, x, L, U):
-        s_max, s_min, delta, c = 10, -((10 * np.log(99 / 50)) / np.log(50)), 0.4, 100
+        s_max, s_min, delta, c = 10, -57.26893683880667, 0.4, 100
         def s0_dist(beta, x, L, U):
             r, s, t = (L - x) / c, (U - L) / c, (x - U) / c
             score = -t * (2 / (1 - beta) + s / (1 + t))
