@@ -19,13 +19,14 @@ def main(name="bob"):
         confidence = request.form['confidence']
         sol = solution[0]
         fen = fens[0]
-        flash("Previous score: " + str(store_score(float(confidence), float(sol), float(lower), float(upper))))
+        flash("Score: " + str(round(store_score(float(confidence), float(sol), float(lower), float(upper)), 2)))
         if not lower:
             lower = 0
         elif not upper:
             upper = 0
         else:
-            mg.append({'lower': lower, 'upper': upper, "alok meme level": confidence, "alok_non_meme":sol, "alok_is_such_a_fen":fen})
+            mg.append({'lower': lower, 'upper': upper, "confidence": int(float(confidence) *100), "solution": sol, "fen":fen, "fenUrl": "https://lichess.org/analysis/fromPosition/" + str(fen).replace(' ', '_')})
+            print(mg)
             return redirect(url_for('main'))
     solution.pop()
     fens.pop()

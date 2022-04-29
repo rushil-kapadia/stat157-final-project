@@ -145,21 +145,11 @@
         <a href="{{ url_for('data') }}">Graphs</a>
         
     </nav>
-    <div>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    {% endwith %}
-    </div>
+
     <hr>
     <div class="content">
+        <h1>Current Question</h1>
         <div><embed src="static/chessImg.pdf" width="500" height="550"></div>
-
         <form method="post">
             <label for="lower">Lower Bound</label>
             <br>
@@ -192,7 +182,27 @@
         </form>
         <a class="button-10" href="{{ url_for('main') }}">Skip</a>
 
-        <p>{{mg}}</p>
+        <!-- <p>{{mg}}</p> -->
+
+        
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages%}
+                <br>
+                <hr>
+                <h1>Previous Question Results</h1>
+                <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                <li>Correct solution was {{ mg[-1]["solution"] }}</li>
+                <li>Your confidence range was from {{ mg[-1]["lower"] }} to {{ mg[-1]["upper"] }}</li>
+                <li>Your confidence interval was {{mg[-1]["confidence"]}}%</li>
+                <li>Link to solution board: <a href={{mg[-1]["fenUrl"]}}>lichess.com</a></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
     </div>
 </body>
 </html>
