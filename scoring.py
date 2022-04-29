@@ -53,6 +53,7 @@ def store_plots(user=''):
             accuracies[betas.index(beta)] = user_scores_dict[key + '_accuracy']
 
     plt.figure(figsize=(8, 8))
+    plt.plot([0, 1], [0, 1], 'k--')
     plt.scatter(x=betas, y=accuracies)
     plt.xlim((0, 1))
     plt.ylim((0, 1))
