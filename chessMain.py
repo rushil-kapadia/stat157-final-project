@@ -3,7 +3,6 @@ from questionGen import question_gen
 from scoring import store_score, store_plots
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
-from pdf2image import convert_from_path
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'df0331cefc6c2b4a5d0208a726a5d1c0fd37324feba25506'
