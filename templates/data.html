@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - FlaskApp</title>
+    <style>
+        .message {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f3f3f3
+        }
+        nav a {
+            color: #0f59fa;
+            font-size: 4;
+            margin-left: 5px;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('main') }}">Calibrate</a>
+        <a href="{{ url_for('data') }}">Graphs</a>
+        
+    </nav>
+    <hr>
+    <div class="content">
+        <p>Here is your graphs bruv</p>
+        <img src="pic_trulli.jpg">
+    </div>
+</body>
+</html>
