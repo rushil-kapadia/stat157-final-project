@@ -32,4 +32,10 @@ def question_gen():
     eval = stockfish.get_evaluation()
     if eval["type"] == 'mate':
         return question_gen()
-    return eval["value"]
+
+    engine = chess.engine.SimpleEngine.popen_uci("/usr/local/Cellar/stockfish/11/bin/stockfish")
+    info = engine.analyse(board, chess.engine.Limit(depth=20))
+    print("MEMEMEMEMEMEMMEMEMEMEMEMEMEMEMEMEMEMEMEME")
+    print(info['score'])
+    print(eval['value'])
+    return eval["value"], fen
