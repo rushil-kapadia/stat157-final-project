@@ -12,10 +12,10 @@ def store_score(beta, x, L, U, user=''):
     def compute_score(beta, x, L, U):
         s_max, s_min, delta, c = 10, -((10 * np.log(99 / 50)) / np.log(50)), 0.4, 100
         def s0_dist(beta, x, L, U):
-            s, r, t = (L - x) / c, (U - L) / c, (x - U) / c
-            score = t * (-2 / (1 - beta) - s / (1 + t))
+            r, s, t = (L - x) / c, (U - L) / c, (x - U) / c
+            score = -t * (2 / (1 - beta) + s / (1 + t))
             if x < L:
-                score = r * (-2 / (1 - beta) - s / (1 + r))
+                score = -r * (2 / (1 - beta) + s / (1 + r))
             elif x <= U:
                 score = 4 * s_max * r * t / s ** 2 * (1 - s / (1 + s))
             return score
