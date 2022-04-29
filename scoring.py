@@ -1,10 +1,12 @@
 import numpy as np
 import pickle
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-DICT_FILE = 'user_scores_dict.pkl'
-ACCURACY_PLOT_FILE = 'accuracy.png'
-SCORES_PLOT_FILE = 'scores.png'
+DICT_FILE = 'data/user_scores_dict.pkl'
+ACCURACY_PLOT_FILE = 'static/accuracy.png'
+SCORES_PLOT_FILE = 'static/scores.png'
 
 def store_score(beta, x, L, U, user=''):
     def compute_score(beta, x, L, U):
@@ -23,12 +25,11 @@ def store_score(beta, x, L, U, user=''):
         user_scores_dict = pickle.load(f)
     
     key = user + '_' + str(beta)
-    
+    final_score = compute_score(beta, x, L, U)
     if key + '_scores' in user_scores_dict:
-        user_scores_dict[key + '_scores'] = user_scores_dict[key + '_scores'].append([compute_score(beta, x, L, U)])
+        user_scores_dict[key + '_scores'].append([final_score])
     else:
-        user_scores_dict[key + '_scores'] = [[compute_score(beta, x, L, U)]]
-    
+        user_scores_dict[key + '_scores'] = [[final_score]]
     n, is_correct = len(user_scores_dict[key + '_scores']), 1 if x >= L and x <= U else 0
     if key + '_accuracy' in user_scores_dict:
         user_scores_dict[key + '_accuracy'] = (user_scores_dict[key + '_accuracy'] * n + is_correct) / (n + 1)
@@ -37,19 +38,22 @@ def store_score(beta, x, L, U, user=''):
 
     with open(DICT_FILE, 'wb') as f:
         pickle.dump(user_scores_dict, f)
+    return final_score
 
 def store_plots(user=''):
     with open(DICT_FILE, 'rb') as f:
         user_scores_dict = pickle.load(f)
 
-    betas, scores, accuracies = [0.5, 0.6, 0.7, 0.8, 0.9], [], []
+    betas, scores, accuracies = [0.5, 0.6, 0.7, 0.8, 0.9], [], [0, 0, 0, 0, 0]
     for beta in betas:
         key = user + '_' + str(beta)
-        scores.extend(user_scores_dict[key + '_scores'])
-        accuracies.append(user_scores_dict[key + '_accuracy'])
+        if key + '_scores' in user_scores_dict:
+            scores.extend(user_scores_dict[key + '_scores'])
+        if key + '_accuracy' in user_scores_dict:
+            accuracies[betas.index(beta)] = user_scores_dict[key + '_accuracy']
 
     plt.figure(figsize=(8, 8))
-    plt.scatter(x=betas, y=accuracies, c='b')
+    plt.scatter(x=betas, y=accuracies)
     plt.xlim((0, 1))
     plt.ylim((0, 1))
     plt.xlabel('confidence level')
@@ -57,8 +61,8 @@ def store_plots(user=''):
     plt.savefig(ACCURACY_PLOT_FILE, dpi=300)
 
     plt.figure(figsize=(8, 8))
-    plt.hist(x=scores, bins=35, c='b')
-    plt.xlim((-60, 10))
+    plt.hist(x=scores)
+    # plt.xlim((-60, 10))
     plt.xlabel('score')
     plt.ylabel('frequency')
     plt.savefig(SCORES_PLOT_FILE, dpi=300)
