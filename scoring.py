@@ -27,9 +27,9 @@ def store_score(beta, x, L, U, user=''):
     key = user + '_' + str(beta)
     final_score = compute_score(beta, x, L, U)
     if key + '_scores' in user_scores_dict:
-        user_scores_dict[key + '_scores'].append([final_score])
+        user_scores_dict[key + '_scores'].append(final_score)
     else:
-        user_scores_dict[key + '_scores'] = [[final_score]]
+        user_scores_dict[key + '_scores'] = [final_score]
     n, is_correct = len(user_scores_dict[key + '_scores']), 1 if x >= L and x <= U else 0
     if key + '_accuracy' in user_scores_dict:
         user_scores_dict[key + '_accuracy'] = (user_scores_dict[key + '_accuracy'] * n + is_correct) / (n + 1)
@@ -62,7 +62,6 @@ def store_plots(user=''):
 
     plt.figure(figsize=(8, 8))
     plt.hist(x=scores)
-    # plt.xlim((-60, 10))
     plt.xlabel('score')
     plt.ylabel('frequency')
     plt.savefig(SCORES_PLOT_FILE, dpi=300)
