@@ -15,7 +15,7 @@ The following sequence of commands will launch the web app at http://127.0.0.1:5
 ```
 export FLASK_APP=chessMain
 export FLASK_ENV=development
-python -m flask run
+flask run
 ```
 
 If the app errors, please refresh/restart it. This will usually resolve the issue, which came up on some operating systems and browsers. The most stable version is on Mac/Chrome.
