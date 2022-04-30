@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 DICT_FILE = 'data/user_scores_dict.pkl'
 ACCURACY_PLOT_FILE = 'static/accuracy.png'
 SCORES_PLOT_FILE = 'static/scores.png'
+COUNTS_PLOT_FILE = 'static/counts.png'
 
 def store_score(beta, x, L, U, user=''):
     def compute_score(beta, x, L, U):
@@ -44,11 +45,12 @@ def store_plots(user=''):
     with open(DICT_FILE, 'rb') as f:
         user_scores_dict = pickle.load(f)
 
-    betas, scores, accuracies = [0.5, 0.6, 0.7, 0.8, 0.9], [], [0, 0, 0, 0, 0]
+    betas, scores, accuracies, counts = [0.5, 0.6, 0.7, 0.8, 0.9], [], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]
     for beta in betas:
         key = user + '_' + str(beta)
         if key + '_scores' in user_scores_dict:
             scores.extend(user_scores_dict[key + '_scores'])
+            counts[betas.index(beta)] = len(user_scores_dict[key + '_scores'])
         if key + '_accuracy' in user_scores_dict:
             accuracies[betas.index(beta)] = user_scores_dict[key + '_accuracy']
 
@@ -66,3 +68,9 @@ def store_plots(user=''):
     plt.xlabel('score')
     plt.ylabel('frequency')
     plt.savefig(SCORES_PLOT_FILE, dpi=300)
+
+    plt.figure(figsize=(8, 8))
+    plt.bar([str(beta) for beta in betas], counts)
+    plt.xlabel('confidence level')
+    plt.ylabel('frequency')
+    plt.savefig(COUNTS_PLOT_FILE, dpi=300)
