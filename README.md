@@ -10,7 +10,7 @@ brew install stockfish
 ```
 For Windows users, download the binary from https://stockfishchess.org/download/.
 
-Then change the path to Stockfish (line 32) in question_gen.py to reflect the path to the Stockfish binary on your device. 
+Then change the path to Stockfish (line 30) in question_gen.py to reflect the path to the Stockfish binary on your device. 
 # Running the App
 The following sequence of commands will launch the web app at http://127.0.0.1:5000.
 ```
