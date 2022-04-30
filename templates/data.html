@@ -22,13 +22,16 @@
     <nav>
         <a href="{{ url_for('main') }}">Calibrate</a>
         <a href="{{ url_for('data') }}">Graphs</a>
+        <a href="{{ url_for('help') }}">Help</a>
         
     </nav>
     <hr>
     <div class="content">
+        <h1>Calibration Results</h1>
         <p>Below are your accuracy and frequency scores</p>
         <img src="static/accuracy.png" style="width:600px;height:600px;">
         <img src="static/scores.png" style="width:600px;height:600px;">
+        <img src="static/counts.png" style="width:600px;height:600px;">
     </div>
 </body>
 </html>
