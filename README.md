@@ -18,4 +18,4 @@ export FLASK_ENV=development
 flask run
 ```
 
-If the app errors, please refresh/restart it. This will usually resolve the issue, which came up on some operating systems and browsers. The most stable version is on Mac/Chrome.
+If the app errors or the UI does not seem to be updating, please refresh it. If that does not work, restart it. This will usually resolve the issue, which came up on some operating systems and browsers. The most stable version is on Mac/Chrome.
