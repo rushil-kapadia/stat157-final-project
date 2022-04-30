@@ -11,35 +11,35 @@ solution = [0]
 fens = [0]
 
 @app.route("/", methods=('GET', 'POST'))
-def main(name="bob"):
+def main():
     if request.method == 'POST':
-        print(request.form)
         lower = request.form['lower']
         upper = request.form['upper']
         confidence = request.form['confidence']
         sol = solution[0]
         fen = fens[0]
-        flash("Score: " + str(round(store_score(float(confidence), float(sol), float(lower), float(upper)), 2)))
-        if not lower:
+        if not lower or len(lower) < 1:
             lower = 0
-        elif not upper:
+        if not upper or len(upper) < 1:
             upper = 0
-        else:
-            mg.append({'lower': lower, 'upper': upper, "confidence": int(float(confidence) *100), "solution": sol, "fen":fen, "fenUrl": "https://lichess.org/analysis/fromPosition/" + str(fen).replace(' ', '_')})
-            print(mg)
-            return redirect(url_for('main'))
+        flash("Score: " + str(round(store_score(float(confidence), float(sol), float(lower), float(upper)), 2)))
+        mg.append({'lower': lower, 'upper': upper, "confidence": int(float(confidence) *100), "solution": sol, "fen":fen, "fenUrl": "https://lichess.org/analysis/fromPosition/" + str(fen).replace(' ', '_')})
+        return redirect(url_for('main'))
     solution.pop()
     fens.pop()
     soll, fen = question_gen()
     solution.append(soll)
     fens.append(fen)
-    print(solution)
     svg = open('data/game.svg').read
     drawing = svg2rlg("data/game.svg")
     renderPDF.drawToFile(drawing, "static/chessImg.pdf")
     return render_template('main.html', mg=mg, svg=Markup(svg))
 
 @app.route("/data")
-def data(name="tom"):
+def data():
     store_plots()
-    return render_template('data.html', name=name)
+    return render_template('data.html')
+
+@app.route("/help")
+def help():
+    return render_template('help.html')
