@@ -27,7 +27,7 @@ def question_gen():
         f.write(chess.svg.board(board))
 
     fen = board.fen()
-    stockfish = Stockfish(path="/usr/local/Cellar/stockfish/15/bin/stockfish",depth=8)
+    stockfish = Stockfish(path="/usr/local/Cellar/stockfish/15/bin/stockfish",depth=20)
     stockfish.set_fen_position(fen)
     eval = stockfish.get_evaluation()
     if eval["type"] == 'mate':
