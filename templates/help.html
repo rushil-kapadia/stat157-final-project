@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - FlaskApp</title>
+    <style>
+        .message {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f3f3f3
+        }
+        nav a {
+            color: #0f59fa;
+            font-size: 4;
+            margin-left: 5px;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('main') }}">Calibrate</a>
+        <a href="{{ url_for('data') }}">Graphs</a>
+        <a href="{{ url_for('help') }}">Help</a>
+        
+    </nav>
+    <hr>
+    <div class="content">
+        <h1>How to Play</h1>
+        <p>Examine the chessboard at the top of the Calibrate page to determine how much of an advantage the white player has in centipawns. A centipawn is measurement of the piece and positional advantage a player has in chess and represents the advantage given by having 1/100th of a pawn more than the other player. In all of the examples, assume that white is next to play.</p>
+        <p>For more help on how the basics of chess work, please visit: <a href="https://en.wikipedia.org/wiki/Rules_of_chess">https://en.wikipedia.org/wiki/Rules_of_chess</a>.</p>
+        <p>When answering a question, enter a lower bound and an upper bound,  and select a confidence interval. Proceed to the next question by submitting your answer, or skipping the question if you do not want to attempt it. Feedback will be given after each question, with the correct answer, your score, and an analysis chess board link to further understand how that chess position should be played. The lichess link allows solver activation in the top right, although it should be noted that their results will vary slightly from ours as per differences in depth and version of solver.</p>
+        <p>Finally, check out the Graphs page to view your long term statistics on how calibrated you are.</p>
+        <p>Inspired by Open Philanthropy.</p>
+    </div>
+</body>
+</html>
